@@ -1,0 +1,8 @@
+This folder contains python code for data cleaning step
+
+Tweets Data Cleansing
+The tweets retrieved from Twitter API has been further cleansed focus on emoji, regular expression and etc 
+which has been detailed in the code. 
+
+Covid Data Cleaning
+The Covid data crawled from google cleaned the n/a values
