@@ -1,0 +1,9 @@
+This directory contains
+
+The source code for processing data from hive using Python
+Video URL of the topic : https://youtu.be/i1Vu1zAJBp4
+Steps
+
+Startup Hadoop
+Startup HiveServer2
+Run Python code
