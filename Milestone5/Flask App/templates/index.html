@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>COVID-19 Tracker</title>
+	<style>
+	table {
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+
+	th, td {
+	  text-align: left;
+	  padding: 2px;
+	}
+
+	tr:nth-child(even) {background-color: #f2f2f2;}
+	
+	tr:hover {background-color:#92a8d1;}
+	
+	.column {
+	  float: left;
+	  width: 50%;
+	}
+
+	.row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
+	</style>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+</head>
+<body>
+<h1>Conorovirus (COVID-19) Tracker</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="chart" id="worldMap">
+                <script>
+                    var graphs = {{plots[0] | safe}};
+                    Plotly.plot('worldMap',graphs,{});
+                </script>
+            </div>
+        </div>
+    </div>
+	<div style="height:50px; width:100%; clear:both;"></div>
+	<h2>Cases by Location</h2>
+	 <div class="row">
+        <div style="height:300px;overflow:auto;">
+            <div class="table" id="covidTable">
+            {{ table|safe }}
+            </div>
+        </div>
+    </div>
+	<div style="height:50px; width:100%; clear:both;"></div>
+	<h2>Worldwide Insight</h2>
+	<div class="row">
+        <div class="col-md-12">
+            <div class="chart" id="topConfirmed">
+                <script>
+                    var graphs = {{plots[1] | safe}};
+                    Plotly.plot('topConfirmed',graphs,{});
+                </script>
+            </div>
+        </div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+            <div class="chart" id="topNew">
+                <script>
+                    var graphs = {{plots[2] | safe}};
+                    Plotly.plot('topNew',graphs,{});
+                </script>
+            </div>
+        </div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+            <div class="chart" id="topDeath">
+                <script>
+                    var graphs = {{plots[3] | safe}};
+                    Plotly.plot('topDeath',graphs,{});
+                </script>
+            </div>
+        </div>
+    </div>
+	<div class="row">
+		<div class="col-md-12">
+            <div class="chart" id="topConfirmedSeries">
+                <script>
+                    var graphs = {{plots[4] | safe}};
+                    Plotly.plot('topConfirmedSeries',graphs,{});
+                </script>
+            </div>
+        </div>
+    </div>
+	<h2>Twitter Sentiment Analysis</h2>
+	<div class="row">
+		<div class="column">
+            <img src={{urls[0]}} alt="Polarity_Score_Line_Plot" >
+        </div>
+		<div class="column">
+            <img src={{urls[1]}} alt="Polarity_Score_Distribution_Plot">
+        </div>
+    </div>
+	<div class="row">
+		<div class="column">
+           <img src={{urls[2]}} alt="worldClound" class="center">
+        </div>
+    </div>
+	<h2>COVID-19 Regional Analysis</h2>
+	<p>Select the country from dropdown list to further analyse the COVID-19 situation for specific location</p>
+	<div class="row">
+		<div class="col-xs-3">
+			<form action="/selectedCountry">
+				<label> Country </label>
+				<select class="form-control" name ="country" id ="country">
+					<option value="Worldwide" selected >Worldwide</option>
+				  {% for country in countries %}
+					<option value="{{country}}">{{country}}</option>
+				  {% endfor %}
+				</select>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+         <div class="col-md-6">
+            <div class="chart" id="overallCase">
+                <script>
+                    var graphs = {{plots[5] | safe}};
+                    Plotly.plot('overallCase',graphs,{});
+                </script>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="chart" id="activeCase">
+                <script>
+                    var graphs = {{plots[6] | safe}};
+                    Plotly.plot('activeCase',graphs,{});
+                </script>
+            </div>
+        </div>
+    </div>	
+	<p>Prediction on COVID-19 trend using machine learning algorithm</p>
+	<div class="row">
+         <div class="col-md-12">
+            <div class="chart" id="svmPred">
+                <script>
+                    var graphs = {{pred[0] | safe}};
+                    Plotly.plot('svmPred',graphs,{});
+                </script>
+            </div>
+        </div>
+	</div>
+     <div class="row">
+         <div class="col-md-12">
+            <div class="chart" id="polyPred">
+                <script>
+                    var graphs = {{pred[1] | safe}};
+                    Plotly.plot('polyPred',graphs,{});
+                </script>
+            </div>
+        </div>
+	</div>
+	<div class="row">
+         <div class="col-md-12">
+            <div class="chart" id="mlpPred">
+                <script>
+                    var graphs = {{pred[2] | safe}};
+                    Plotly.plot('mlpPred',graphs,{});
+                </script>
+            </div>
+        </div>
+	</div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery-1.11.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/plots.js') }}"></script>
+</body>
+</html>
